@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>فروشگاه بازی Zoya | Zoya Game Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;}
+    body{background:#020617;color:#e5e7eb;line-height:1.7;padding:16px;}
+    header{text-align:center;margin-bottom:18px;}
+    header h1{font-size:22px;margin-bottom:4px;color:#22c55e;}
+    header .langs{font-size:11px;color:#9ca3af;}
+    header .langs div{margin-top:2px;}
 
+    .info{
+      margin-top:10px;
+      font-size:12px;
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.4);
+      padding:10px 12px;
+      background:rgba(15,23,42,.85);
+      text-align:right;
+    }
+
+    .products{display:grid;gap:12px;margin-top:18px;}
+    .card{
+      border-radius:14px;
+      border:1px solid rgba(148,163,184,.4);
+      padding:12px 12px;
+      background:rgba(15,23,42,.95);
+    }
+    .card h2{font-size:15px;margin-bottom:2px;}
+    .card small{font-size:11px;color:#9ca3af;}
+    .prices{margin-top:6px;font-size:12px;}
+    .prices div{display:flex;justify-content:space-between;}
+    .label{color:#9ca3af;}
+    .val{font-weight:600;}
+
+    .btns{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
+    a.btn{
+      flex:1;
+      text-align:center;
+      text-decoration:none;
+      font-size:11px;
+      padding:7px 8px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.6);
+      color:#e5e7eb;
+    }
+    a.primary{
+      border:none;
+      background:linear-gradient(135deg,#22c55e,#0ea5e9);
+      font-weight:600;
+    }
+
+    footer{
+      margin-top:22px;
+      text-align:center;
+      font-size:11px;
+      color:#6b7280;
+    }
+
+    @media (min-width:768px){
+      body{max-width:800px;margin:0 auto;}
+      .products{grid-template-columns:1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>فروشگاه بازی Zoya 🎮</h1>
+
+    <div class="langs">
+      <div>FA: فروش گیفت‌کارت و پول داخل بازی</div>
+      <div>EN: Zoya Game Store – game coins & gift cards</div>
+      <div>AR: متجر الألعاب زويا – شحن الألعاب</div>
+      <div>RU: Магазин игр Zoya – внутриигровая валюта</div>
+      <div>TR: Zoya Oyun Mağazası – oyun içi para</div>
+    </div>
+
+    <div class="info">
+      روش خرید: بازی و پک رو انتخاب کن → روی دکمه سفارش بزن →
+      داخل واتساپ/تلگرام چت می‌کنی → پرداخت با <b>یورو، لیر، یا تومان ایران</b> هماهنگ می‌شه.
+    </div>
+  </header>
+
+  <main>
+    <div class="products">
+
+      <!-- محصول ۱ -->
+      <div class="card">
+        <h2>پک کوچک بازی ۱</h2>
+        <small>مثلاً 600 جم / 600 UC / 800 سکه</small>
+
+        <div class="prices">
+          <div><span class="label">قیمت یورو (EUR)</span><span class="val">€10</span></div>
+          <div><span class="label">قیمت لیر (TRY)</span><span class="val">350 ₺</span></div>
+          <div><span class="label">قیمت تومان (IRR)</span><span class="val">600,000 T</span></div>
+        </div>
+
+        <div class="btns">
+          <!-- این لینک‌ها رو بعداً عوض کن -->
+          <a class="btn primary" href="https://wa.me/989120000000" target="_blank">سفارش در واتساپ</a>
+          <a class="btn" href="https://t.me/your_telegram" target="_blank">سفارش در تلگرام</a>
+        </div>
+      </div>
+
+      <!-- محصول ۲ -->
+      <div class="card">
+        <h2>پک متوسط بازی ۲</h2>
+        <small>مثلاً 1800 جم / 1800 UC / 2400 سکه</small>
+
+        <div class="prices">
+          <div><span class="label">قیمت یورو (EUR)</span><span class="val">€25</span></div>
+          <div><span class="label">قیمت لیر (TRY)</span><span class="val">875 ₺</span></div>
+          <div><span class="label">قیمت تومان (IRR)</span><span class="val">1,450,000 T</span></div>
+        </div>
+
+        <div class="btns">
+          <a class="btn primary" href="https://wa.me/989120000000" target="_blank">سفارش در واتساپ</a>
+          <a class="btn" href="https://t.me/your_telegram" target="_blank">سفارش در تلگرام</a>
+        </div>
+      </div>
+
+      <!-- محصول ۳ -->
+      <div class="card">
