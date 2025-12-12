@@ -3,432 +3,335 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ZoyaBomb — بازی‌های آنلاین پولی (Demo)</title>
+<title>ZoyaBomb — دمو بازی‌های آنلاین</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --bg:#07110b;
-    --card:#0b2a1f;
-    --accent:#2ec776;
-    --accent2:#1fa35f;
-    --glass:rgba(255,255,255,0.04);
-    --muted:#b8d7c4;
-    --white: #e9fff0;
-    --glass2: rgba(255,255,255,0.03);
+    --bg:#03140d; --card:#07221a; --accent:#24c26b; --accent2:#18b66a; --glass:rgba(255,255,255,0.04);
+    --muted:#b7c6b9; --white:#f7fff9;
+    --price-badge:#013e2a;
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
   body{
-    margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma;
-    background: radial-gradient(circle at 10% 10%, #0a2016 0%, transparent 12%),
-                radial-gradient(circle at 90% 90%, rgba(32,48,34,0.6) 0%, transparent 18%),
-                linear-gradient(135deg,var(--bg), #062016 60%);
-    color:var(--white);padding:20px;display:flex;justify-content:center;
-    -webkit-font-smoothing:antialiased;
+    margin:0;min-height:100vh;
+    font-family:"Vazirmatn","Poppins","Segoe UI",Roboto,Arial;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(36,194,107,0.06), transparent 10%),
+      linear-gradient(180deg,var(--bg),#02110a 60%);
+    color:var(--white);
+    padding:20px;
+    display:flex;justify-content:center;
   }
-  .wrap{width:100%;max-width:920px}
-  header{
-    display:flex;align-items:center;justify-content:space-between;
-    gap:10px;margin-bottom:18px;
+  .wrap{width:100%;max-width:1100px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo{
+    width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex;align-items:center;justify-content:center;color:#032513;font-weight:900;font-size:22px;
+    transform:rotate(-6deg);box-shadow:0 12px 30px rgba(0,0,0,0.5);
+    animation:float 3s ease-in-out infinite;
   }
-  .brand{
-    display:flex;flex-direction:column;gap:6px;
+  @keyframes float{0%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(-4deg)}100%{transform:translateY(0) rotate(-6deg)}}
+  h1{margin:0;font-size:28px;letter-spacing:.4px}
+  .muted{color:var(--muted)}
+  .lang-select{display:flex;gap:8px;align-items:center}
+  .lang-select select{padding:8px 10px;border-radius:10px;border:0;background:var(--glass);color:var(--white)}
+  .intro{margin:14px 0 20px;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.03)}
+  .grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
+  .games{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));border-radius:14px;padding:12px;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
+  .game-card{
+    height:160px;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;color:var(--white);
+    background-size:cover;background-position:center;cursor:pointer;transition:transform .28s,box-shadow .28s,filter .28s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.45);
   }
-  .title{
-    font-size:28px;font-weight:800;color:var(--accent);
-    display:flex;gap:10px;align-items:center;
-    text-shadow:0 6px 24px rgba(0,0,0,0.6);
-    transform-origin:center left;
-    animation: floaty 3s ease-in-out infinite;
-  }
-  @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
-  .subtitle{font-size:12px;color:var(--muted)}
-  .langbar{display:flex;gap:8px;align-items:center}
-  .langbar button{background:transparent;border:1px solid var(--glass2);color:var(--muted);padding:6px 10px;border-radius:8px;cursor:pointer}
-  .grid{display:grid;grid-template-columns:1fr;gap:16px}
-  @media(min-width:860px){.grid{grid-template-columns:1fr 360px}}
-  .card{background:linear-gradient(180deg,var(--card), rgba(0,0,0,0.2));border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
-  .games{display:grid;grid-template-columns:repeat(1,1fr);gap:12px}
-  @media(min-width:520px){.games{grid-template-columns:repeat(2,1fr)}}
-  .game{
-    padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(15,30,20,0.02));
-    border:1px solid rgba(255,255,255,0.025);display:flex;flex-direction:column;gap:8px;
-    transition:transform .25s ease, box-shadow .25s ease;cursor:pointer;
-  }
-  .game:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(18,120,70,0.14)}
-  .game h3{margin:0;font-size:18px;color:var(--accent)}
-  .game p{margin:0;color:var(--muted);font-size:13px}
-  .priceRow{display:flex;gap:8px;align-items:center;margin-top:6px}
-  .price{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-weight:700}
-  .btnRow{display:flex;gap:8px;margin-top:8px}
-  .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--white);cursor:pointer}
-  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#05220f;font-weight:700}
-  .conv{display:flex;flex-direction:column;gap:10px}
-  label{font-size:13px;color:var(--muted)}
-  input,select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);outline:none}
-  .small{font-size:12px;color:var(--muted)}
-  .footer{margin-top:12px;color:var(--muted);font-size:13px}
-  .green-note{color:var(--accent);font-weight:700}
-  .animated-header{
-    display:flex;justify-content:center;align-items:center;padding:14px;border-radius:12px;background:linear-gradient(90deg, rgba(46,199,118,0.08), rgba(31,163,95,0.04));margin-bottom:10px;
-    border:1px solid rgba(46,199,118,0.08);backdrop-filter: blur(6px);
-  }
-  .welcome-msg{font-size:16px;font-weight:700}
-  /* flashing effect for amount */
-  .flash{animation:flashit .9s ease}
-  @keyframes flashit{0%{transform:scale(1);box-shadow:0 0 0 rgba(46,199,118,0)}50%{transform:scale(1.03);box-shadow:0 10px 40px rgba(46,199,118,0.12)}100%{transform:scale(1);box-shadow:0 0 0 rgba(46,199,118,0)}}
+  .game-card::after{content:"";position:absolute;left:0;right:0;bottom:0;top:0;border-radius:12px;background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.6));mix-blend-mode:multiply}
+  .game-card:hover{transform:translateY(-10px);filter:brightness(1.06)}
+  .game-title{z-index:2;font-weight:800;font-family:'Poppins',sans-serif}
+  .game-sub{z-index:2;color:var(--muted);font-size:13px}
+  .game-cta{z-index:2;align-self:flex-end;background:rgba(0,0,0,0.35);padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);font-weight:700}
+  .panel{padding:12px;display:flex;flex-direction:column;gap:12px}
+  .price-box{background:linear-gradient(90deg, rgba(36,194,107,0.06), rgba(32,166,107,0.03));padding:12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+  .convert{display:flex;gap:8px;align-items:center}
+  input[type=number]{width:110px;padding:8px;border-radius:8px;border:0;background:rgba(255,255,255,0.03);color:var(--white);font-weight:700}
+  .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:800}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#032513;box-shadow:0 10px 26px rgba(32,166,107,0.12)}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--white)}
+  .accounts small{color:var(--muted)}
+  .accounts p{margin:6px 0 0;font-size:14px}
+  .whatsapp{display:inline-block;padding:8px 10px;background:linear-gradient(90deg,#25D366,#128C7E);color:white;border-radius:8px;text-decoration:none;font-weight:800}
+  .price-tag{display:inline-block;background:var(--price-badge);padding:6px 8px;border-radius:8px;font-weight:800;color:var(--accent);}
+  footer{margin-top:22px;text-align:center;color:var(--muted)}
   /* modal */
-  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6));z-index:99}
+  .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8));z-index:9999}
   .modal.open{display:flex}
-  .modal .box{width:100%;max-width:460px;background:var(--card);padding:18px;border-radius:12px}
-  .row{display:flex;gap:8px;align-items:center}
-  .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:700}
-  .flag{font-size:12px}
-  .bank-info{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:10px;border-radius:10px;border:1px dashed rgba(255,255,255,0.03);font-size:13px}
-  .note{font-size:12px;color:#ffd8a3}
+  .modal-card{width:92%;max-width:520px;background:linear-gradient(180deg,#062616,#022012);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
+  .games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+  .game-thumb{height:86px;border-radius:8px;background:#0a2a1f;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent)}
+  /* responsive */
+  @media (max-width:920px){
+    .grid{grid-template-columns:1fr}
+    .games{grid-template-columns:1fr;}
+    header{flex-direction:column;align-items:flex-start;gap:10px}
+  }
+  /* small styled badges */
+  .pill{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:700}
+  /* fancy headers */
+  .welcome{font-weight:800;color:var(--accent);animation:glow 2.6s infinite}
+  @keyframes glow{0%{text-shadow:0 0 6px rgba(36,194,107,0.06)}50%{text-shadow:0 0 18px rgba(36,194,107,0.3)}100%{text-shadow:0 0 6px rgba(36,194,107,0.06)}}
 </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="title">🎮 ZoyaBomb — فروشگاه بازی آنلاین</div>
-        <div class="subtitle">بازی‌های آنلاین پولی — فقط ۱۸+ — پرداخت مستقیم به بازی (Demo)</div>
+        <div class="logo">ZB</div>
+        <div>
+          <h1 id="title">فروشگاه بازی ZoyaBomb</h1>
+          <div class="muted" id="subtitle">بازی‌های آنلاین پولی • نسخهٔ دمو (۱۸+)</div>
+        </div>
       </div>
 
-      <div class="langbar">
-        <button data-lang="fa">فارسی</button>
-        <button data-lang="en">EN</button>
-        <button data-lang="ar">عربى</button>
-        <button data-lang="ru">РУ</button>
-        <button data-lang="tr">TR</button>
+      <div class="lang-select">
+        <div class="welcome" id="welcomeText">خوش آمدید — ZoyaBomb</div>
+        <select id="lang">
+          <option value="fa">فارسی</option>
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+          <option value="ru">Русский</option>
+          <option value="tr">Türkçe</option>
+        </select>
       </div>
     </header>
 
+    <div class="intro card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <strong id="introTitle">بازی‌های آنلاین پولی — ورود مستقیم بعد از پرداخت (دمو)</strong>
+          <div class="muted" id="introText">توضیح: این نسخه دمو است — پرداخت‌ها شبیه‌سازی شده‌اند.</div>
+        </div>
+        <div>
+          <a id="whatsappLink" class="whatsapp" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
     <div class="grid">
-      <!-- left: games + descriptions -->
-      <div class="card">
-        <div class="animated-header">
-          <div class="welcome-msg" id="welcomeText">خوش آمدی — ZoyaBomb (فقط ۱۸+)</div>
-        </div>
-
-        <div class="small">روش کار: بازی انتخاب کن → پرداخت کن (Demo) → لینک بازی مستقیم نمایش داده می‌شود.</div>
-
-        <div style="height:12px"></div>
-
-        <div class="games" id="gamesList">
-          <!-- game items (JS will populate) -->
-        </div>
-
-        <div class="footer">
-          <div class="green-note">پشتیبانی/تلگرام?</div>
-          <div class="small">واتساپ (پشتیبانی): <a id="waLink" href="https://wa.me/989117710134" target="_blank" style="color:var(--accent)">+98 911 771 0134</a></div>
-          <div class="note">هشدار: بازی‌های پولی ممکن است منجر به باخت پول شود — فقط ۱۸+ و مطابق قوانین محلی شرکت کنید.</div>
-        </div>
-      </div>
-
-      <!-- right: converter / payment -->
-      <div class="card">
-        <h3 style="margin-top:0;color:var(--accent)">مبدل نرخ / پرداخت (Demo)</h3>
-        <div class="conv">
-          <label>مقدار به یورو</label>
-          <input id="eurInput" type="number" value="10" min="1" step="1" />
-
-          <label>واحد تبدیل</label>
-          <select id="targetC">
-            <option value="TRY">لیر (TRY)</option>
-            <option value="IRR">تومان/ریال (IRR)</option>
-            <option value="EUR">یورو (EUR)</option>
-          </select>
-
-          <div class="row" style="margin-top:6px;align-items:stretch">
-            <div style="flex:1">
-              <label>نرخ زنده (فچ از API)</label>
-              <div id="rateDisplay" class="bank-info">دریافت نرخ ...</div>
+      <div>
+        <div class="games">
+          <!-- Blast -->
+          <div class="card game-card" id="game-blast" style="background-image:url('https://images.unsplash.com/photo-1600250390134-3b6b3b0b3b94?auto=format&fit=crop&w=800&q=60')">
+            <div style="z-index:2">
+              <div class="game-title" id="g-blast">انفجار — Blast</div>
+              <div class="game-sub">بازی پر هیجان، شرطی سریع</div>
             </div>
-            <div style="width:120px">
-              <label>اقدام</label>
-              <button class="btn primary" id="calcBtn">محاسبه & پرداخت (Demo)</button>
-            </div>
+            <div class="game-cta">شروع بازی</div>
           </div>
 
-          <div id="converted" style="margin-top:10px;color:var(--muted)"></div>
-
-          <div style="height:10px"></div>
-
-          <div>
-            <div class="small">حساب‌ها / روش‌های دریافت (جای‌گذاری با اطلاعات واقعی):</div>
-            <div class="bank-info">
-              <div><strong>ایران (کارت بانکی):</strong> <span id="iranCard">[لطفاً شماره کارت ایران را اینجا وارد کنید]</span></div>
-              <div style="margin-top:6px"><strong>ایبان یورو (Demo):</strong> <span id="euroIban">[ایبان یورو (مثال): TR...]</span></div>
-              <div style="margin-top:6px"><small class="small">تذکر: در این دمو پرداخت شبیه‌سازی می‌شود. برای پرداخت واقعی، درگاه آنلاین متصل کنید.</small></div>
+          <!-- Poker -->
+          <div class="card game-card" id="game-poker" style="background-image:url('https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=800&q=60')">
+            <div style="z-index:2">
+              <div class="game-title" id="g-poker">پوکر — Poker</div>
+              <div class="game-sub">شرطی و رقابتی</div>
             </div>
+            <div class="game-cta">شروع بازی</div>
+          </div>
+
+          <!-- Dice -->
+          <div class="card game-card" id="game-dice" style="background-image:url('https://images.unsplash.com/photo-1573164574517-8e4f3b3e6f20?auto=format&fit=crop&w=800&q=60')">
+            <div style="z-index:2">
+              <div class="game-title" id="g-dice">تاس — Dice</div>
+              <div class="game-sub">شانس و هیجان</div>
+            </div>
+            <div class="game-cta">شروع بازی</div>
+          </div>
+
+          <!-- Tournament -->
+          <div class="card game-card" id="game-tourn" style="background-image:url('https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=800&q=60')">
+            <div style="z-index:2">
+              <div class="game-title" id="g-tourn">تورنمنت — Tournament</div>
+              <div class="game-sub">مسابقات حرفه‌ای با جایزه</div>
+            </div>
+            <div class="game-cta">ورود</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="card panel">
+          <strong class="muted" id="rulesTitle">قوانین و توضیحات</strong>
+          <div class="muted">فقط افراد بالای ۱۸ سال. این صفحه دموست؛ پرداخت‌ها شبیه‌سازی می‌شوند.</div>
+          <div style="display:flex;gap:10px;margin-top:10px">
+            <button class="btn primary" id="demoPayBtn">پرداخت دمو و ورود مستقیم</button>
+            <button id="whatsBtn" class="btn ghost">تماس واتس‌اپ</button>
           </div>
         </div>
       </div>
+
+      <aside>
+        <div class="card panel">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="muted">قیمت پایه</div>
+              <div style="font-weight:900;font-size:22px">€<span id="euroAmount">7</span> <span class="price-tag">1350 T</span></div>
+            </div>
+            <div class="pill muted">نمایش قیمت ثابت: €7 — 1350 T</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="muted">تبدیل نمایشی</div>
+            <div style="display:flex;justify-content:space-between;margin-top:8px">
+              <div><strong id="tryVal">—</strong><div class="muted">لیر (TRY)</div></div>
+              <div><strong id="irrVal">—</strong><div class="muted">تومان (IRR)</div></div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="muted">اطلاعات پرداخت (نمایشی)</div>
+            <p class="muted">واتس‌اپ: <a id="phoneText">...</a></p>
+            <p class="muted">حساب یورو (IBAN): <br /><code id="ibanText" style="color:var(--accent);font-weight:800"></code></p>
+            <div class="muted">برای دمو: پس از پرداخت (نمایشی) مستقیماً وارد بازی خواهید شد.</div>
+          </div>
+
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn primary" id="convertBtn">نمایش تبدیل</button>
+            <button class="btn ghost" id="updateRatesBtn">ویرایش نرخ (دستی)</button>
+          </div>
+        </div>
+
+        <div class="card panel" style="margin-top:14px">
+          <div class="muted">فهرست بازی‌ها</div>
+          <div style="margin-top:8px;font-weight:700">انفجار · پوکر · تاس · تورنمنت</div>
+        </div>
+      </aside>
     </div>
 
-    <!-- modal پرداخت -->
-    <div class="modal" id="payModal">
-      <div class="box">
-        <h3 style="margin:0">پرداخت دمو — وارد بازی شو</h3>
-        <div style="margin-top:8px" class="small">مبلغ انتخابی: <span id="modalAmount"></span></div>
-        <div style="margin-top:10px">
-          <label>نام بازیکن (نمایش در بازی)</label>
-          <input id="playerName" placeholder="نام شما" />
-        </div>
-        <div style="margin-top:10px" class="row">
-          <button class="btn primary" id="proceedPay">پرداخت شبیه‌سازی (Demo)</button>
-          <button class="btn" id="closeModal">انصراف</button>
-        </div>
-        <div style="margin-top:12px" id="payResult" class="small"></div>
+    <footer>
+      <div class="muted">نسخهٔ دمو — پرداخت‌ها واقعی نیستند. برای فعال‌سازی درگاه واقعی ارتباط بگیر.</div>
+    </footer>
+  </div>
+
+  <!-- modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong id="modalTitle">پرداخت دمو — نتیجه</strong>
+        <button id="closeModal" class="btn ghost">بستن</button>
+      </div>
+      <div id="modalBody" class="muted">
+        <!-- populated by JS -->
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn primary" id="enterGameBtn">ورود به بازی (دمو)</button>
       </div>
     </div>
-
   </div>
 
 <script>
-/*
-  ZoyaBomb Demo single-file
-  - زبان‌ها: fa,en,ar,ru,tr
-  - نرخ ارز زنده: exchangerate.host
-  - PAY: شبیه‌سازی (برای پرداخت واقعی باید درگاه وصل بشه)
-*/
+/* CONFIG */
+const FIXED_EUR = 7;              // مبلغ ثابت خواسته شده
+const FIXED_LABEL = "1350 T";     // متن کنار مبلغ
+const RATE_TRY = 45.0;            // نرخ تست؛ در صورت نیاز ویرایش کن
+const RATE_IRR = 420000;          // نرخ تست (تومان)؛ در صورت نیاز ویرایش کن
+const WHATSAPP_NUMBER = "09117710134"; // شماره ایران که دادی (نمایشی)
+const IBAN_EUR = "TR59 0001 0090 1094 0634 0050 02"; // آیبان نمونه که دادی
 
-/* ====== settings / content ====== */
-const LANG = {
-  fa: {
-    welcome: "خوش آمدی — ZoyaBomb",
-    gamesTitle: "بازی‌های آنلاین پولی",
-    playNow: "شروع بازی",
-    supports: "پشتیبانی: واتس‌اپ",
-    ageWarn: "فقط برای افراد ۱۸+ — مسئولیت با شماست"
-  },
-  en: {
-    welcome: "Welcome — ZoyaBomb",
-    gamesTitle: "Online Money Games",
-    playNow: "Play now",
-    supports: "Support: WhatsApp",
-    ageWarn: "18+ only — play responsibly"
-  },
-  ar: {
-    welcome: "أهلاً — ZoyaBomb",
-    gamesTitle: "ألعاب أونلاين بمقابل مادي",
-    playNow: "إبدأ اللعب",
-    supports: "الدعم: واتساب",
-    ageWarn: "فقط ١٨+ — العب بمسؤولية"
-  },
-  ru: {
-    welcome: "Добро пожаловать — ZoyaBomb",
-    gamesTitle: "Онлайн игры за деньги",
-    playNow: "Играть",
-    supports: "Поддержка: WhatsApp",
-    ageWarn: "Только 18+ — играйте ответственно"
-  },
-  tr: {
-    welcome: "Hoş geldin — ZoyaBomb",
-    gamesTitle: "Çevrimiçi Para Oyunları",
-    playNow: "Oyna",
-    supports: "Destek: WhatsApp",
-    ageWarn: "18+ yalnızca — sorumlu oynayın"
-  }
-};
-
-const GAMES = [
-<style>
-.button {
-  display: inline-block;
-  padding: 14px 28px;
-  margin: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  background: linear-gradient(90deg, #b30000, #ff0000);
-  border: none;
-  border-radius: 10px;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
-  transition: all 0.3s ease;
-}
-.button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
-}
-.price {
-  font-size: 16px;
-  color: #fff;
-  margin-top: 5px;
-  display: block;
-  opacity: 0.9;
-}
-</style>
-<a href="https://rolladie.netlify.app" target="_blank" class="button">
-  🎲 Roll the Dice
-  <span class="price">€7 1180T </span>
-</a>
-<a href="https://challonge.com/tournament/create" target="_blank" class="button">
-  🏆 Join the Tournament
-  <span class="price">€7 1150T </span>
-</a>
-  { id:'poker', title:{fa:'پوکر',en:'Poker',ar:'بوكر',ru:'Покер',tr:'Poker'}, desc:{fa:'بازی کارتی محبوب — مهارت + شانس',en:'Classic card poker',ar:'بوكر بطاقات',ru:'Классический покер',tr:'Klasik poker'}, img:'', eur:7 }, 1200T
-  { id:'crash', title:{fa:'انفجار (Crash)',en:'Crash (Burst)',ar:'كراش',ru:'Crash',tr:'Crash'}, desc:{fa:'بازی سریع، هیجان بالا',en:'Fast excitement game',ar:'لعبة سريعة',ru:'Быстрая игра'}, img:'', eur:8 }, 1200T
-  { id:'jump', title:{fa:'پرش (Jump)',en:'Jump',ar:'قفز',ru:'Jump',tr:'Jump'}, desc:{fa:'بازی ساده اما جذاب',en:'Simple jump challenge',ar:'تحدى القفز',ru:'Скоростной прыжок'} , img:'', eur:12}, 1400T
-  { id:'bomb', title:{fa:'بمب (Blast)',en:'Blast',ar:'انفجار',ru:'Взрыв',tr:'Patlama'}, desc:{fa:'بازی هیجان‌انگیز انفجاری',en:'High thrill blast',ar:'انفجار مثير',ru:'Адреналиновый взрыв'}, img:'', eur:10} 1300T
-];
-
-/* ====== DOM ====== */
-const welcomeText = document.getElementById('welcomeText');
-const gamesList = document.getElementById('gamesList');
-const rateDisplay = document.getElementById('rateDisplay');
-const eurInput = document.getElementById('eurInput');
-const targetC = document.getElementById('targetC');
-const calcBtn = document.getElementById('calcBtn');
-const converted = document.getElementById('converted');
-const payModal = document.getElementById('payModal');
-const modalAmount = document.getElementById('modalAmount');
-const proceedPay = document.getElementById('proceedPay');
+/* elements */
+const lang = document.getElementById('lang');
+const euroAmount = document.getElementById('euroAmount');
+const tryVal = document.getElementById('tryVal');
+const irrVal = document.getElementById('irrVal');
+const convertBtn = document.getElementById('convertBtn');
+const updateRatesBtn = document.getElementById('updateRatesBtn');
+const phoneText = document.getElementById('phoneText');
+const ibanText = document.getElementById('ibanText');
+const whatsappLink = document.getElementById('whatsappLink');
+const demoPayBtn = document.getElementById('demoPayBtn');
+const whatsBtn = document.getElementById('whatsBtn');
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
 const closeModal = document.getElementById('closeModal');
-const payResult = document.getElementById('payResult');
-const waLink = document.getElementById('waLink');
-const iranCard = document.getElementById('iranCard');
-const euroIban = document.getElementById('euroIban');
+const enterGameBtn = document.getElementById('enterGameBtn');
 
-/* default placeholders (YOU should replace these safely in your deployed file) */
-iranCard.textContent = "[شماره کارت ایران: 5047 XXXX XXXX 8116]";  // demo placeholder — replace locally
-euroIban.textContent = "[ایبان یورو: TR5900 XXXX XXXX XXXX 3400]";      // placeholder — Lira TR32 0001 0090 XXXX XXXX XXXX
+/* init */
+euroAmount.textContent = FIXED_EUR;
+phoneText.textContent = WHATSAPP_NUMBER;
+ibanText.textContent = IBAN_EUR;
+whatsappLink.href = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g,'')}`;
+whatsBtn.onclick = ()=> window.open(whatsappLink.href,'_blank');
 
-/* ====== language switch ====== */
-document.querySelectorAll('.langbar button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    const L = b.getAttribute('data-lang');
-    applyLang(L);
-  });
-});
-function applyLang(L='fa'){
-  welcomeText.textContent = LANG[L]?.welcome || LANG.fa.welcome;
-  // also update game titles/buttons
-  document.querySelectorAll('.game').forEach(node=>{
-    const gid = node.dataset.id;
-    const g = GAMES.find(x=>x.id===gid);
-    node.querySelector('h3').textContent = g.title[L] || g.title.fa;
-    node.querySelector('.game p').textContent = g.desc[L] || g.desc.fa;
-    node.querySelector('.price').textContent = (g.eur?('€'+g.eur):'');
-  });
+/* conversion functions */
+function formatTry(x){ return x.toLocaleString() + " ₺"; }
+function formatIrr(x){ return x.toLocaleString() + " T"; }
+
+function updateConversion(){
+  const e = FIXED_EUR;
+  const t = Math.round(e * (window.RATE_TRY || RATE_TRY));
+  const r = Math.round(e * (window.RATE_IRR || RATE_IRR));
+  tryVal.textContent = formatTry(t);
+  irrVal.textContent = formatIrr(r);
 }
+updateConversion();
 
-/* ====== render games ====== */
-function renderGames(){
-  gamesList.innerHTML = '';
-  GAMES.forEach(g=>{
-    const el = document.createElement('div');
-    el.className = 'game';
-    el.dataset.id = g.id;
-    el.innerHTML = `
-      <h3>${g.title.fa}</h3>
-      <p>${g.desc.fa}</p>
-      <div class="priceRow"><div class="price">€${g.eur}</div><div class="small" style="flex:1;color:var(--muted)">قیمت پایه</div></div>
-      <div class="btnRow">
-        <button class="btn primary selBtn">${LANG.fa.playNow}</button>
-        <button class="btn infoBtn">اطلاعات</button>
-      </div>
-    `;
-    gamesList.appendChild(el);
-
-    el.querySelector('.selBtn').addEventListener('click',()=>{
-      openPay(g);
-    });
-    el.querySelector('.infoBtn').addEventListener('click',()=>{
-      alert((g.title.fa||g.title.en) + "\\n\\n" + (g.desc.fa||g.desc.en) + "\\nBase: €"+g.eur);
-    });
-  });
+/* language strings (simple) */
+const strings = {
+  fa:{ welcome:"خوش آمدید — ZoyaBomb", demoBtn:"پرداخت دمو و ورود مستقیم", introTitle:"بازی‌های آنلاین پولی — ورود بعد از پرداخت" },
+  en:{ welcome:"Welcome — ZoyaBomb", demoBtn:"Demo pay & enter", introTitle:"Paid online games — enter after payment" },
+  ar:{ welcome:"مرحباً — ZoyaBomb", demoBtn:"دفع تجريبي و الدخول", introTitle:"ألعاب مدفوعة — الدخول بعد الدفع" },
+  ru:{ welcome:"Добро пожаловать — ZoyaBomb", demoBtn:"Demo pay & enter", introTitle:"Платные игры — вход после оплаты" },
+  tr:{ welcome:"Hoşgeldiniz — ZoyaBomb", demoBtn:"Demo ödeme & giriş", introTitle:"Ücretli oyunlar — ödeme sonrası giriş" }
+};
+function applyLang(code){
+  const s = strings[code] || strings.fa;
+  document.getElementById('welcomeText').textContent = s.welcome;
+  document.getElementById('demoPayBtn').textContent = s.demoBtn;
+  document.getElementById('introTitle').textContent = s.introTitle;
 }
-renderGames();
+applyLang(lang.value);
+lang.addEventListener('change', ()=> applyLang(lang.value));
 
-/* ====== currency rates (live fetch) ====== */
-let lastRates = null;
-async function fetchRates(){
-  rateDisplay.textContent = 'دریافت نرخ ...';
-  try{
-    // fetch base EUR rates for TRY and IRR from exchangerate.host
-    const resp = await fetch('https://api.exchangerate.host/latest?base=EUR&symbols=TRY,IRR');
-    const data = await resp.json();
-    if(!data || !data.rates) throw new Error('no rates');
-    lastRates = data.rates; // e.g. {TRY:49.2, IRR:48823}
-    rateDisplay.innerHTML = `1 EUR ≈ <strong>${(lastRates.TRY? lastRates.TRY.toLocaleString()+' TRY':'-')}</strong>  &nbsp; | &nbsp; <strong>${(lastRates.IRR? lastRates.IRR.toLocaleString()+' IRR':'-')}</strong><br><small class="small">نرخ زنده از exchangerate.host — تجدید با هر بار بارگذاری</small>`;
-    updateConverted();
-  }catch(e){
-    rateDisplay.innerHTML = 
-    console.error(e);
-  }
-}
-fetchRates();
-
-/* ====== calculate / show converted ====== */
-function updateConverted(){
-  const e = Number(eurInput.value) || 0;
-  const tgt = targetC.value;
-  if(!lastRates){ converted.innerHTML = 'نرخ موجود نیست — لطفاً صبر کن یا صفحه را رفرش کن.'; return;}
-  let out='';
-  if(tgt==='EUR'){ out = `€${e.toFixed(2)}`;}
-  else if(tgt==='TRY'){ const v = e * lastRates.TRY; out = v.toLocaleString() + ' ₺ (TRY)';}
-  else if(tgt==='IRR'){ const v = e * lastRates.IRR; out = v.toLocaleString() + ' IRR';}
-  converted.innerHTML = `<div class="small">تبدیل:</div><div style="font-size:18px;font-weight:800" id="convVal">${out}</div>`;
-  // flash
-  const convVal = document.getElementById('convVal');
-  if(convVal){ convVal.classList.remove('flash'); void convVal.offsetWidth; convVal.classList.add('flash'); }
-}
-
-eurInput.addEventListener('input', updateConverted);
-targetC.addEventListener('change', updateConverted);
-calcBtn.addEventListener('click',()=>{
-  updateConverted();
-  openPay(null); // generic payment — if called from game, game param will be passed elsewhere
+/* interactive */
+convertBtn.addEventListener('click', updateConversion);
+updateRatesBtn.addEventListener('click', ()=>{
+  const nTRY = prompt("نرخ TRY = 1 EUR (مثال: 45):", RATE_TRY);
+  const nIRR = prompt("نرخ IRR = 1 EUR (تومان، مثال: 420000):", RATE_IRR);
+  if(nTRY) window.RATE_TRY = parseFloat(nTRY);
+  if(nIRR) window.RATE_IRR = parseFloat(nIRR);
+  updateConversion();
 });
 
-/* ====== open payment modal (with game) ====== */
-function openPay(game){
-  const eur = Number((game && game.eur) || Number(eurInput.value)||10);
-  modalAmount.textContent = `€${eur}  — (${targetC.value})`;
-  payModal.classList.add('open');
-  payResult.textContent = '';
-  // store selection for proceed
-  payModal.dataset.eur = eur;
-  payModal.dataset.game = (game?game.id:'direct');
-}
-
-/* modal actions */
-closeModal.addEventListener('click',()=>payModal.classList.remove('open'));
-document.getElementById('closeModal').addEventListener('click',()=>payModal.classList.remove('open'));
-
-proceedPay.addEventListener('click', async ()=>{
-  payResult.textContent = 'در حال پردازش پرداخت (Demo) ...';
-  const eur = Number(payModal.dataset.eur) || 0;
-  const tgt = targetC.value;
-  // simulate delay
-  await new Promise(r=>setTimeout(r,1200));
-  // In demo: show success and direct game url
-  const fakeGameUrl = '#game-'+(payModal.dataset.game||'direct');
-  payResult.innerHTML = `<span style="color:${getComputedStyle(document.documentElement).getPropertyValue('--accent')}">پرداخت موفق (Demo).</span> <br/> <a href="${fakeGameUrl}" onclick="event.preventDefault();alert('Demo: وارد بازی شوید');">ورود مستقیم به بازی →</a>`;
-  // close after a bit
-  setTimeout(()=>{ payModal.classList.remove('open'); },1300);
+/* demo payment flow */
+demoPayBtn.addEventListener('click', ()=>{
+  const e = FIXED_EUR;
+  const t = Math.round(e * (window.RATE_TRY || RATE_TRY));
+  const r = Math.round(e * (window.RATE_IRR || RATE_IRR));
+  modalBody.innerHTML = `
+    <div style="font-weight:800;margin-bottom:8px">پرداخت دمو موفق ✅</div>
+    <div>مبلغ: €${e} &nbsp; <span style="background:var(--price-badge);padding:4px 8px;border-radius:8px;color:var(--accent);font-weight:800">${FIXED_LABEL}</span></div>
+    <div style="margin-top:8px">نمایش تبدیل: <strong>${formatTry(t)}</strong> — <strong>${formatIrr(r)}</strong></div>
+    <div style="margin-top:10px" class="muted">اطلاعات پرداخت (نمایشی):<br/>IBAN: <code style="color:var(--accent);font-weight:800">${IBAN_EUR}</code></div>
+    <div style="margin-top:10px"><a class="whatsapp" target="_blank" href="${whatsappLink.href}">تماس واتس‌اپ برای هماهنگی</a></div>
+  `;
+  modal.classList.add('open');
 });
 
-/* ====== small helpers ====== */
-function getLangText(lang, key){ return (LANG[lang] && LANG[lang][key]) || (LANG.fa && LANG.fa[key]) || '' }
+closeModal.addEventListener('click', ()=> { modal.classList.remove('open'); });
+enterGameBtn.addEventListener('click', ()=> {
+  // open a simple demo game page
+  const html = `
+    <!doctype html><html lang="fa"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Demo Game</title><style>body{margin:0;height:100vh;background:#02110a;color:#fff;display:flex;align-items:center;justify-content:center;font-family:Poppins,Arial} .box{padding:20px;border-radius:12px;background:linear-gradient(90deg,#032b1e,#01331f);text-align:center} button{margin-top:12px;padding:10px 14px;border-radius:10px;border:0;background:#24c26b;color:#042513;font-weight:800}</style></head><body><div class="box"><h2>صفحهٔ بازی — نسخهٔ دمویی</h2><p>شبیه‌سازی ورود موفق به بازی (دمو).</p><button onclick="alert('شروع بازی (دمو)');">شروع بازی</button></div></body></html>
+  `;
+  const w = window.open(); w.document.write(html); modal.classList.remove('open');
+});
 
-/* apply default language fa */
-applyLang('fa');
-updateConverted();
+/* game clicks */
+document.getElementById('game-blast').addEventListener('click', ()=> { demoPayBtn.textContent = (strings[lang.value]||strings.fa).demoBtn + " — انفجار"; demoPayBtn.scrollIntoView({behavior:'smooth'});});
+document.getElementById('game-poker').addEventListener('click', ()=> { demoPayBtn.textContent = (strings[lang.value]||strings.fa).demoBtn + " — پوکر"; demoPayBtn.scrollIntoView({behavior:'smooth'});});
+document.getElementById('game-dice').addEventListener('click', ()=> { demoPayBtn.textContent = (strings[lang.value]||strings.fa).demoBtn + " — تاس"; demoPayBtn.scrollIntoView({behavior:'smooth'});});
+document.getElementById('game-tourn').addEventListener('click', ()=> { demoPayBtn.textContent = (strings[lang.value]||strings.fa).demoBtn + " — تورنمنت"; demoPayBtn.scrollIntoView({behavior:'smooth'});});
 
-برای اطلاعت پرداخت از واتساب پیم بدید
-  Для получения информации об оплате отправьте сообщение в WhatsApp  
-أرسل رسالة عبر واتساب للحصول على معلومات الدفع
-   Ödeme bilgileri için WhatsApp üzerinden mesaj gönderin
-*/
-
-/* 
-optional: auto-refresh rates every 10 minutes */
-setInterval(fetchRates, 10*60*1000);
 </script>
 </body>
 </html>
