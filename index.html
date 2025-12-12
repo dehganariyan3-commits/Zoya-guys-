@@ -235,10 +235,45 @@ const LANG = {
 };
 
 const GAMES = [
-  { id:'poker', title:{fa:'پوکر',en:'Poker',ar:'بوكر',ru:'Покер',tr:'Poker'}, desc:{fa:'بازی کارتی محبوب — مهارت + شانس',en:'Classic card poker',ar:'بوكر بطاقات',ru:'Классический покер',tr:'Klasik poker'}, img:'', eur:10 },
-  { id:'crash', title:{fa:'انفجار (Crash)',en:'Crash (Burst)',ar:'كراش',ru:'Crash',tr:'Crash'}, desc:{fa:'بازی سریع، هیجان بالا',en:'Fast excitement game',ar:'لعبة سريعة',ru:'Быстрая игра'}, img:'', eur:15 },
-  { id:'jump', title:{fa:'پرش (Jump)',en:'Jump',ar:'قفز',ru:'Jump',tr:'Jump'}, desc:{fa:'بازی ساده اما جذاب',en:'Simple jump challenge',ar:'تحدى القفز',ru:'Скоростной прыжок'} , img:'', eur:12},
-  { id:'bomb', title:{fa:'بمب (Blast)',en:'Blast',ar:'انفجار',ru:'Взрыв',tr:'Patlama'}, desc:{fa:'بازی هیجان‌انگیز انفجاری',en:'High thrill blast',ar:'انفجار مثير',ru:'Адреналиновый взрыв'}, img:'', eur:20}
+<style>
+.button {
+  display: inline-block;
+  padding: 14px 28px;
+  margin: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #b30000, #ff0000);
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+.button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
+}
+.price {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 5px;
+  display: block;
+  opacity: 0.9;
+}
+</style>
+<a href="https://rolladie.netlify.app" target="_blank" class="button">
+  🎲 Roll the Dice
+  <span class="price">€7 1180T </span>
+</a>
+<a href="https://challonge.com/tournament/create" target="_blank" class="button">
+  🏆 Join the Tournament
+  <span class="price">€7 1150T </span>
+</a>
+  { id:'poker', title:{fa:'پوکر',en:'Poker',ar:'بوكر',ru:'Покер',tr:'Poker'}, desc:{fa:'بازی کارتی محبوب — مهارت + شانس',en:'Classic card poker',ar:'بوكر بطاقات',ru:'Классический покер',tr:'Klasik poker'}, img:'', eur:7 }, 1200T
+  { id:'crash', title:{fa:'انفجار (Crash)',en:'Crash (Burst)',ar:'كراش',ru:'Crash',tr:'Crash'}, desc:{fa:'بازی سریع، هیجان بالا',en:'Fast excitement game',ar:'لعبة سريعة',ru:'Быстрая игра'}, img:'', eur:8 }, 1200T
+  { id:'jump', title:{fa:'پرش (Jump)',en:'Jump',ar:'قفز',ru:'Jump',tr:'Jump'}, desc:{fa:'بازی ساده اما جذاب',en:'Simple jump challenge',ar:'تحدى القفز',ru:'Скоростной прыжок'} , img:'', eur:12}, 1400T
+  { id:'bomb', title:{fa:'بمب (Blast)',en:'Blast',ar:'انفجار',ru:'Взрыв',tr:'Patlama'}, desc:{fa:'بازی هیجان‌انگیز انفجاری',en:'High thrill blast',ar:'انفجار مثير',ru:'Адреналиновый взрыв'}, img:'', eur:10} 1300T
 ];
 
 /* ====== DOM ====== */
@@ -260,7 +295,7 @@ const euroIban = document.getElementById('euroIban');
 
 /* default placeholders (YOU should replace these safely in your deployed file) */
 iranCard.textContent = "[شماره کارت ایران: 5047 XXXX XXXX 8116]";  // demo placeholder — replace locally
-euroIban.textContent = "[ایبان یورو: TRxxxxxxxxxxxxxxxxxxxx]";      // placeholder — don't publish card numbers online
+euroIban.textContent = "[ایبان یورو: TR5900 XXXX XXXX XXXX 3400]";      // placeholder — Lira TR32 0001 0090 XXXX XXXX XXXX
 
 /* ====== language switch ====== */
 document.querySelectorAll('.langbar button').forEach(b=>{
@@ -322,7 +357,7 @@ async function fetchRates(){
     rateDisplay.innerHTML = `1 EUR ≈ <strong>${(lastRates.TRY? lastRates.TRY.toLocaleString()+' TRY':'-')}</strong>  &nbsp; | &nbsp; <strong>${(lastRates.IRR? lastRates.IRR.toLocaleString()+' IRR':'-')}</strong><br><small class="small">نرخ زنده از exchangerate.host — تجدید با هر بار بارگذاری</small>`;
     updateConverted();
   }catch(e){
-    rateDisplay.innerHTML = 'خطا در دریافت نرخ — کنترل اینترنت یا API';
+    rateDisplay.innerHTML = 
     console.error(e);
   }
 }
@@ -385,12 +420,14 @@ function getLangText(lang, key){ return (LANG[lang] && LANG[lang][key]) || (LANG
 applyLang('fa');
 updateConverted();
 
-/* ====== quick note about replacing account numbers ======
-   - برای درج شماره کارت/ایبان: در HTML بخش .bank-info مقادیر داخل span#iranCard و span#euroIban را با اطلاعات خودت جایگزین کن.
-   - هشدار: شماره کارت و CVV را در فایل‌های عمومی منتشر نکن.
+برای اطلاعت پرداخت از واتساب پیم بدید
+  Для получения информации об оплате отправьте сообщение в WhatsApp  
+أرسل رسالة عبر واتساب للحصول على معلومات الدفع
+   Ödeme bilgileri için WhatsApp üzerinden mesaj gönderin
 */
 
-/* optional: auto-refresh rates every 10 minutes */
+/* 
+optional: auto-refresh rates every 10 minutes */
 setInterval(fetchRates, 10*60*1000);
 </script>
 </body>
