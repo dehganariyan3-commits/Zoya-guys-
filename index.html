@@ -1,126 +1,383 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <title>فروشگاه بازی Zoya | Zoya Game Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;}
-    body{background:#020617;color:#e5e7eb;line-height:1.7;padding:16px;}
-    header{text-align:center;margin-bottom:18px;}
-    header h1{font-size:22px;margin-bottom:4px;color:#22c55e;}
-    header .langs{font-size:11px;color:#9ca3af;}
-    header .langs div{margin-top:2px;}
+‏<!DOCTYPE html>
+‏<html lang="fa" dir="rtl">
+‏<head>
+‏  <meta charset="UTF-8" />
+‏  <title>ZoyaBomb | بازی‌های آنلاین پولی</title>
+‏  <meta name="viewport" content="width=device-width, initial-scale=1" />
+‏  <style>
+‏    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;}
+‏    body{background:#020617;color:#e5e7eb;line-height:1.7;padding:16px;text-align:center;}
 
-    .info{
-      margin-top:10px;
-      font-size:12px;
-      border-radius:14px;
-      border:1px solid rgba(148,163,184,.4);
-      padding:10px 12px;
-      background:rgba(15,23,42,.85);
-      text-align:right;
+    /* خوشامد بالای صفحه */
+‏    .welcome{
+‏      padding:10px 14px;
+‏      border-radius:999px;
+‏      font-size:12px;
+‏      margin-bottom:10px;
+‏      background:linear-gradient(120deg,#22c55e,#0ea5e9,#a855f7);
+‏      background-size:300% 300%;
+‏      animation:welcomeGradient 6s ease infinite;
+‏      box-shadow:0 0 18px rgba(59,130,246,.5);
+    }
+‏    @keyframes welcomeGradient{
+‏      0%{background-position:0% 50%;}
+‏      50%{background-position:100% 50%;}
+‏      100%{background-position:0% 50%;}
     }
 
-    .products{display:grid;gap:12px;margin-top:18px;}
-    .card{
-      border-radius:14px;
-      border:1px solid rgba(148,163,184,.4);
-      padding:12px 12px;
-      background:rgba(15,23,42,.95);
-    }
-    .card h2{font-size:15px;margin-bottom:2px;}
-    .card small{font-size:11px;color:#9ca3af;}
-    .prices{margin-top:6px;font-size:12px;}
-    .prices div{display:flex;justify-content:space-between;}
-    .label{color:#9ca3af;}
-    .val{font-weight:600;}
-
-    .btns{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
-    a.btn{
-      flex:1;
-      text-align:center;
-      text-decoration:none;
-      font-size:11px;
-      padding:7px 8px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.6);
-      color:#e5e7eb;
-    }
-    a.primary{
-      border:none;
-      background:linear-gradient(135deg,#22c55e,#0ea5e9);
-      font-weight:600;
+‏    header h1{font-size:22px;margin-bottom:4px;color:#22c55e;}
+‏    header select{margin-top:10px;padding:6px 10px;border-radius:8px;background:#1e293b;color:#e5e7eb;border:1px solid rgba(148,163,184,.5);}
+‏    .info{
+‏      margin-top:14px;font-size:12px;border-radius:14px;
+‏      border:1px solid rgba(148,163,184,.4);padding:10px 12px;
+‏      background:rgba(15,23,42,.85);text-align:right;
     }
 
-    footer{
-      margin-top:22px;
-      text-align:center;
-      font-size:11px;
-      color:#6b7280;
+‏    .phone-banner{
+‏      margin-top:14px;
+‏      padding:10px 12px;
+‏      border-radius:999px;
+‏      background:radial-gradient(circle at 0 0,#22c55e33,#0ea5e933);
+‏      border:1px solid rgba(34,197,94,.7);
+‏      display:flex;
+‏      flex-direction:column;
+‏      gap:4px;
+‏      font-size:12px;
+‏      animation: phoneGlow 2.4s infinite alternate;
+    }
+‏    .phone-line{display:flex;justify-content:space-between;align-items:center;}
+‏    .phone-label{color:#a5b4fc;font-size:11px;}
+‏    .phone-number{font-weight:600;letter-spacing:1px;}
+
+‏    @keyframes phoneGlow{
+‏      from{box-shadow:0 0 10px rgba(34,197,94,.5);}
+‏      to{box-shadow:0 0 24px rgba(14,165,233,.7);}
     }
 
-    @media (min-width:768px){
-      body{max-width:800px;margin:0 auto;}
-      .products{grid-template-columns:1fr 1fr;}
+‏    .age-warning{
+‏      margin-top:10px;
+‏      font-size:11px;
+‏      padding:6px 10px;
+‏      border-radius:999px;
+‏      border:1px solid #f97316;
+‏      color:#fed7aa;
+‏      background:rgba(124,45,18,.7);
+‏      display:inline-block;
     }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>فروشگاه بازی Zoya 🎮</h1>
 
-    <div class="langs">
-      <div>FA: فروش گیفت‌کارت و پول داخل بازی</div>
-      <div>EN: Zoya Game Store – game coins & gift cards</div>
-      <div>AR: متجر الألعاب زويا – شحن الألعاب</div>
-      <div>RU: Магазин игр Zoya – внутриигровая валюта</div>
-      <div>TR: Zoya Oyun Mağazası – oyun içi para</div>
-    </div>
+‏    .products{display:grid;gap:12px;margin-top:18px;text-align:right;}
+‏    .card{
+‏      border-radius:14px;
+‏      border:1px solid rgba(148,163,184,.4);
+‏      padding:12px;
+‏      background:radial-gradient(circle at top,#0f172a,#020617);
+    }
+‏    .card h2{font-size:15px;margin-bottom:4px;}
+‏    .tagline{font-size:11px;color:#a5b4fc;margin-bottom:4px;}
+‏    .details{font-size:11px;color:#9ca3af;margin-bottom:6px;}
+‏    .prices{margin-top:4px;font-size:12px;}
+‏    .prices div{display:flex;justify-content:space-between;}
+‏    .label{color:#9ca3af;}
+‏    .val{font-weight:600;}
+‏    .btns{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;}
+‏    a.btn{
+‏      flex:1;text-align:center;text-decoration:none;font-size:11px;
+‏      padding:7px 8px;border-radius:999px;border:1px solid rgba(148,163,184,.6);
+‏      color:#e5e7eb;
+    }
+‏    a.primary{
+‏      border:none;
+‏      background:linear-gradient(135deg,#22c55e,#0ea5e9);
+‏      font-weight:600;
+    }
+‏    .pulse{
+‏      animation:pulseBtn 1.8s infinite;
+    }
+‏    @keyframes pulseBtn{
+‏      0%{transform:scale(1);box-shadow:0 0 5px rgba(34,197,94,0.4);}
+‏      50%{transform:scale(1.05);box-shadow:0 0 25px rgba(14,165,233,0.6);}
+‏      100%{transform:scale(1);box-shadow:0 0 5px rgba(34,197,94,0.4);}
+    }
 
-    <div class="info">
-      روش خرید: بازی و پک رو انتخاب کن → روی دکمه سفارش بزن →
-      داخل واتساپ/تلگرام چت می‌کنی → پرداخت با <b>یورو، لیر، یا تومان ایران</b> هماهنگ می‌شه.
-    </div>
-  </header>
+‏    footer{margin-top:22px;text-align:center;font-size:11px;color:#6b7280;}
+‏    @media (min-width:768px){
+‏      body{max-width:800px;margin:0 auto;}
+‏      .products{grid-template-columns:1fr 1fr;}
+    }
 
-  <main>
-    <div class="products">
+    /* مبدل قیمت */
+‏    #converter{
+‏      margin-top:18px;
+‏      padding:14px;
+‏      border-radius:14px;
+‏      border:1px solid rgba(56,189,248,.5);
+‏      background:rgba(15,23,42,.95);
+‏      box-shadow:0 0 25px rgba(56,189,248,.2);
+‏      text-align:right;
+    }
+‏    #converter h2{font-size:15px;margin-bottom:6px;color:#38bdf8;}
+‏    #converter p{font-size:12px;margin-bottom:4px;}
+‏    #eur-range{width:100%;margin:8px 0;}
+‏    .num{transition:color .2s, transform .2s;}
+‏    .num.flash{color:#0ea5e9;transform:scale(1.05);}
+‏  </style>
+‏</head>
+‏<body>
+‏  <header>
+‏    <div class="welcome" id="welcome">
+      خوش اومدی به ZoyaBomb 💣 – بازی‌های آنلاین پولی، فقط برای ۱۸+ و با مسئولیت خودت
+‏    </div>
 
-      <!-- محصول ۱ -->
-      <div class="card">
-        <h2>پک کوچک بازی ۱</h2>
-        <small>مثلاً 600 جم / 600 UC / 800 سکه</small>
+‏    <h1 id="title">💣 ZoyaBomb – بازی‌های آنلاین پولی</h1>
 
-        <div class="prices">
-          <div><span class="label">قیمت یورو (EUR)</span><span class="val">€10</span></div>
-          <div><span class="label">قیمت لیر (TRY)</span><span class="val">350 ₺</span></div>
-          <div><span class="label">قیمت تومان (IRR)</span><span class="val">600,000 T</span></div>
-        </div>
+‏    <select id="lang-select">
+‏      <option value="fa">🇮🇷 فارسی</option>
+‏      <option value="en">🇬🇧 English</option>
+‏      <option value="tr">🇹🇷 Türkçe</option>
+‏      <option value="ar">🇸🇦 العربية</option>
+‏      <option value="ru">🇷🇺 Русский</option>
+‏    </select>
 
-        <div class="btns">
-          <!-- این لینک‌ها رو بعداً عوض کن -->
-          <a class="btn primary" href="https://wa.me/989120000000" target="_blank">سفارش در واتساپ</a>
-          <a class="btn" href="https://t.me/your_telegram" target="_blank">سفارش در تلگرام</a>
-        </div>
-      </div>
+‏    <p id="subtitle">
+      بازی‌های آنلاین سبک کازینو – امکان برد بالا ولی همیشه احتمال باخت کامل پول هم هست 🎰⚠️
+‏    </p>
 
-      <!-- محصول ۲ -->
-      <div class="card">
-        <h2>پک متوسط بازی ۲</h2>
-        <small>مثلاً 1800 جم / 1800 UC / 2400 سکه</small>
+‏    <div class="info" id="info">
+      اول بازی رو انتخاب کن → روی دکمه «شروع بازی / پرداخت» بزن →
+      وارد واتساپ می‌شی → قوانین، ریسک و مبلغ دقیق رو می‌گیری →
+      بعد از پرداخت، لینک بازی اختصاصی برات ارسال میشه. این بازی‌ها ممکنه باعث باخت کل مبلغ بشن؛ فقط با پول اضافه‌ات بازی کن.
+‏    </div>
 
-        <div class="prices">
-          <div><span class="label">قیمت یورو (EUR)</span><span class="val">€25</span></div>
-          <div><span class="label">قیمت لیر (TRY)</span><span class="val">875 ₺</span></div>
-          <div><span class="label">قیمت تومان (IRR)</span><span class="val">1,450,000 T</span></div>
-        </div>
+‏    <div class="phone-banner">
+‏      <div class="phone-line">
+‏        <span class="phone-label">واتساپ (ZoyaBomb)</span>
+‏        <span class="phone-number">+90 538 961 1719</span>
+‏      </div>
+‏    </div>
 
-        <div class="btns">
-          <a class="btn primary" href="https://wa.me/989120000000" target="_blank">سفارش در واتساپ</a>
-          <a class="btn" href="https://t.me/your_telegram" target="_blank">سفارش در تلگرام</a>
-        </div>
-      </div>
+‏    <div class="age-warning" id="age-warning">
+      ⚠️ تنها برای افراد ۱۸ سال به بالا – لطفاً مسئولانه بازی کنید.
+‏    </div>
+‏  </header>
 
-      <!-- محصول ۳ -->
-      <div class="card">
+‏  <main>
+‏    <div class="products">
+
+      <!-- بازی ۱: چرخ شانس -->
+‏      <div class="card">
+‏        <h2>🎡 چرخ شانس ZoyaBomb</h2>
+‏        <div class="tagline">اسپین کن، تا ۵ برابر ورودی‌ات رو ببر – یا همه‌اش رو از دست بده 😏</div>
+‏        <div class="details">
+          چند خونه با ضریب‌های مختلف (۰x تا ۵x). قبل از شروع، ضریب‌ها و قانون دقیق داخل واتساپ برات ارسال میشه.
+‏        </div>
+‏        <div class="prices">
+‏          <div><span class="label">ورودی پایه (EUR)</span><span class="val">€5</span></div>
+‏          <div><span class="label">تقریباً (TRY)</span><span class="val">190 ₺</span></div>
+‏          <div><span class="label">تقریباً (IRR)</span><span class="val">320,000 T</span></div>
+‏        </div>
+‏        <div class="btns">
+‏          <a class="btn primary pulse" href="https://wa.me/905389611719" target="_blank">شروع چرخ شانس در واتساپ</a>
+‏        </div>
+‏      </div>
+
+      <!-- بازی ۲: کارت طلایی یا بمب -->
+‏      <div class="card">
+‏        <h2>🃏 کارت طلایی یا بمب</h2>
+‏        <div class="tagline">چند تا کارت بسته؛ بعضیا چند برابر پول، بعضیا خالی، یکی هم بمب صفرکننده 💣</div>
+‏        <div class="details">
+          تعداد کارت‌ها و جایزه هر کارت قبل از بازی گفته میشه. یه کارت انتخاب می‌کنی؛ همون لحظه می‌فهمی بردی یا باختی.
+‏        </div>
+‏        <div class="prices">
+‏          <div><span class="label">ورودی پایه (EUR)</span><span class="val">€3</span></div>
+‏          <div><span class="label">تقریباً (TRY)</span><span class="val">115 ₺</span></div>
+‏          <div><span class="label">تقریباً (IRR)</span><span class="val">190,000 T</span></div>
+‏        </div>
+‏        <div class="btns">
+‏          <a class="btn primary pulse" href="https://wa.me/905389611719" target="_blank">بازی کارت طلایی در واتساپ</a>
+‏        </div>
+‏      </div>
+
+      <!-- بازی ۳: جک‌پات -->
+‏      <div class="card">
+‏        <h2>💣 جک‌پات ZoyaBomb</h2>
+‏        <div class="tagline">هرکی شرکت می‌کنه پولش میره توی صندوق؛ آخر سر یک نفر همه رو می‌بره 👑</div>
+‏        <div class="details">
+          تعداد اسلات‌ها محدود؛ اسامی شرکت‌کننده‌ها قبل از قرعه‌کشی فرستاده میشه. قرعه‌کشی می‌تونه ویدئویی یا اسکرین‌شیر باشه.
+‏        </div>
+‏        <div class="prices">
+‏          <div><span class="label">ورودی هر نفر (EUR)</span><span class="val">€8</span></div>
+‏          <div><span class="label">تقریباً (TRY)</span><span class="val">300 ₺</span></div>
+‏          <div><span class="label">تقریباً (IRR)</span><span class="val">520,000 T</span></div>
+‏        </div>
+‏        <div class="btns">
+‏          <a class="btn primary pulse" href="https://wa.me/905389611719" target="_blank">شرکت در جک‌پات در واتساپ</a>
+‏        </div>
+‏      </div>
+
+      <!-- بازی ۴: کم‌ریسک -->
+‏      <div class="card">
+‏        <h2>🪙 بازی کم‌ریسک Zoya</h2>
+‏        <div class="tagline">برای کسایی که می‌خوان حس کازینو داشته باشن ولی ریسک کمتر 🤝</div>
+‏        <div class="details">
+          شانس باخت کامل کمتره، ولی ضریب برد هم پایین‌تره (مثلاً ۱٫۲x تا ۲x). ساختار دقیق بازی قبل از شروع بهت گفته میشه.
+‏        </div>
+‏        <div class="prices">
+‏          <div><span class="label">ورودی پایه (EUR)</span><span class="val">€2</span></div>
+‏          <div><span class="label">تقریباً (TRY)</span><span class="val">75 ₺</span></div>
+‏          <div><span class="label">تقریباً (IRR)</span><span class="val">130,000 T</span></div>
+‏        </div>
+‏        <div class="btns">
+‏          <a class="btn primary pulse" href="https://wa.me/905389611719" target="_blank">بازی کم‌ریسک در واتساپ</a>
+‏        </div>
+‏      </div>
+
+‏    </div>
+
+    <!-- 🔢 مبدل قیمت -->
+‏    <div class="card" id="converter">
+‏      <h2 id="conv-title">💶 مبدل قیمت بازی‌ها (نمایشی)</h2>
+‏      <p id="conv-desc">اسلایدر رو تکون بده تا ببینی هر چند یورو تقریباً چند لیر و چند تومنه.</p>
+
+‏      <p>
+        مبلغ ورودی:
+‏        <span class="num" id="eur-val">15</span> €
+‏      </p>
+
+‏      <input type="range" id="eur-range" min="2" max="50" value="15" step="1" />
+
+‏      <p>
+        ≈
+‏        <span class="num" id="try-val">0</span> ₺
+‏        &nbsp; | &nbsp;
+‏        <span class="num" id="irr-val">0</span> T
+‏      </p>
+
+‏      <p style="font-size:11px;color:#9ca3af;margin-top:4px;" id="conv-note">
+        * نرخ‌ها حدودی هستن؛ هر وقت نرخ عوض شد فقط توی کد عددها رو تغییر بده.
+‏      </p>
+‏    </div>
+‏  </main>
+
+‏  <footer id="foot">
+    این سایت فقط برای هماهنگی بازی‌های آنلاین پولی است؛ افراد زیر ۱۸ سال و کسانی که مشکل مالی دارند نباید بازی کنند. مسئولیت کامل با خود کاربر است. ✨
+‏  </footer>
+
+‏  <script>
+    // داده‌های چندزبانه
+‏    const data = {
+‏      fa:{
+‏        welcome:"خوش اومدی به ZoyaBomb 💣 – بازی‌های آنلاین پولی، فقط برای ۱۸+ و با مسئولیت خودت",
+‏        title:"💣 ZoyaBomb – بازی‌های آنلاین پولی",
+‏        subtitle:"بازی‌های آنلاین سبک کازینو – امکان برد بالا ولی همیشه احتمال باخت کامل پول هم هست 🎰⚠️",
+‏        info:"اول بازی رو انتخاب کن → روی دکمه «شروع بازی / پرداخت» بزن → وارد واتساپ می‌شی → قوانین، ریسک و مبلغ دقیق رو می‌گیری → بعد از پرداخت، لینک بازی اختصاصی برات ارسال میشه. این بازی‌ها ممکنه باعث باخت کل مبلغ بشن؛ فقط با پول اضافه‌ات بازی کن.",
+‏        age:"⚠️ تنها برای افراد ۱۸ سال به بالا – لطفاً مسئولانه بازی کنید.",
+‏        foot:"این سایت فقط برای هماهنگی بازی‌های آنلاین پولی است؛ افراد زیر ۱۸ سال و کسانی که مشکل مالی دارند نباید بازی کنند. مسئولیت کامل با خود کاربر است. ✨",
+‏        conv_title:"💶 مبدل قیمت بازی‌ها (نمایشی)",
+‏        conv_desc:"اسلایدر رو تکون بده تا ببینی هر چند یورو تقریباً چند لیر و چند تومنه.",
+‏        conv_note:"* نرخ‌ها حدودی هستن؛ هر وقت نرخ عوض شد فقط توی کد عددها رو تغییر بده.",
+‏        dir:"rtl"
+      },
+‏      en:{
+‏        welcome:"Welcome to ZoyaBomb 💣 – paid online games, 18+ only, play at your own risk.",
+‏        title:"💣 ZoyaBomb – Paid Online Games",
+‏        subtitle:"Casino-style online games – chance to win big, but you can also lose your full stake 🎰⚠️",
+‏        info:"Pick a game → click “Start / Pay” → you’ll chat with us on WhatsApp → we explain rules, risks and exact price → after payment you receive your private game link. You can lose the entire amount; only play with spare money.",
+‏        age:"⚠️ 18+ only – please gamble responsibly.",
+‏        foot:"This site only coordinates paid online games; under 18s and people with financial problems must not play. You are fully responsible for your decisions. ✨",
+‏        conv_title:"💶 Game price converter (demo)",
+‏        conv_desc:"Move the slider to see approximately how many TRY / Toman each EUR is.",
+‏        conv_note:"* Rates are approximate; update them in the code whenever needed.",
+‏        dir:"ltr"
+      },
+‏      tr:{
+‏        welcome:"ZoyaBomb’a hoş geldin 💣 – ücretli online oyunlar, sadece 18+ ve kendi sorumluluğunda.",
+‏        title:"💣 ZoyaBomb – Ücretli Online Oyunlar",
+‏        subtitle:"Casino tarzı online oyunlar – büyük kazanma şansı var ama tüm paranı da kaybedebilirsin 🎰⚠️",
+‏        info:"Önce oyunu seç → “Oyun / ödeme” butonuna tıkla → WhatsApp’tan yaz → kurallar, riskler ve net fiyat anlatılır → ödeme sonrası özel oyun linkin gönderilir. Tüm miktarı kaybedebilirsin; sadece kenara ayırdığın parayla oyna.",
+‏        age:"⚠️ Sadece 18+ için – lütfen sorumlu şekilde oynayın.",
+‏        foot:"Bu site sadece ücretli online oyunları organize eder; 18 yaş altı ve maddi sorunu olan kişiler oynamamalıdır. Tüm sorumluluk oyuncuya aittir. ✨",
+‏        conv_title:"💶 Oyun fiyatı dönüştürücü (demo)",
+‏        conv_desc:"Kaydırıcıyı oynat, yaklaşık EUR karşılığının TRY ve Toman değerini gör.",
+‏        conv_note:"* Kurlar yaklaşık; gerektiğinde koddan güncelleyebilirsin.",
+‏        dir:"ltr"
+      },
+‏      ar:{
+‏        welcome:"مرحباً بك في ZoyaBomb 💣 – ألعاب أونلاين مدفوعة، 18+ فقط وعلى مسؤوليتك الخاصة.",
+‏        title:"💣 زويا بومب – ألعاب أونلاين مدفوعة",
+‏        subtitle:"ألعاب بأسلوب كازينو – إمكانية ربح كبير لكن يمكن أن تخسر كامل المبلغ أيضاً 🎰⚠️",
+‏        info:"اختر اللعبة → اضغط «بدء / دفع» → يتم التواصل عبر واتساب → نشرح القواعد والمخاطر والسعر بدقة → بعد الدفع يصلك رابط اللعبة الخاصة بك. قد تخسر المبلغ كاملاً؛ العب فقط بالمال الزائد عن حاجتك.",
+‏        age:"⚠️ مخصص لمن هم 18+ فقط – الرجاء اللعب بمسؤولية.",
+‏        foot:"هذا الموقع مخصص لتنظيم الألعاب الأونلاين المدفوعة فقط؛ من هم دون 18 عاماً أو من لديهم مشاكل مالية يجب ألا يلعبوا. المسؤولية كاملة على اللاعب. ✨",
+‏        conv_title:"💶 محوّل سعر الألعاب (تجريبي)",
+‏        conv_desc:"حرّك المنزلق لمشاهدة قيمة اليورو تقريبياً بالليرة والتومان.",
+‏        conv_note:"* الأسعار تقريبية؛ يمكنك تعديلها في الكود متى شئت.",
+‏        dir:"rtl"
+      },
+‏      ru:{
+‏        welcome:"Добро пожаловать в ZoyaBomb 💣 – платные онлайн-игры, только 18+ и на свой риск.",
+‏        title:"💣 ZoyaBomb – Платные онлайн-игры",
+‏        subtitle:"Игры в стиле казино – можно выиграть много, но можно потерять весь депозит 🎰⚠️",
+‏        info:"Выбери игру → нажми «Старт / Оплата» → свяжись с нами в WhatsApp → мы объясним правила, риски и точную цену → после оплаты ты получишь приватную ссылку на игру. Можно потерять всю сумму; играй только на свободные деньги.",
+‏        age:"⚠️ Только для 18+ – играйте ответственно.",
+‏        foot:"Этот сайт только организует платные игры; лицам до 18 лет и людям с финансовыми проблемами играть нельзя. Вся ответственность лежит на игроке. ✨",
+‏        conv_title:"💶 Конвертер цены игры (демо)",
+‏        conv_desc:"Двигай ползунок и смотри примерное значение в TRY и туманах.",
+‏        conv_note:"* Курсы примерные; их можно изменить в коде в любой момент.",
+‏        dir:"ltr"
+      }
+    };
+
+‏    const sel = document.getElementById("lang-select");
+‏    const welcomeEl = document.getElementById("welcome");
+‏    const titleEl = document.getElementById("title");
+‏    const subEl = document.getElementById("subtitle");
+‏    const infoEl = document.getElementById("info");
+‏    const ageEl = document.getElementById("age-warning");
+‏    const footEl = document.getElementById("foot");
+‏    const convTitleEl = document.getElementById("conv-title");
+‏    const convDescEl = document.getElementById("conv-desc");
+‏    const convNoteEl = document.getElementById("conv-note");
+
+‏    sel.addEventListener("change", () => {
+‏      const lang = data[sel.value];
+‏      welcomeEl.innerText = lang.welcome;
+‏      titleEl.innerText = lang.title;
+‏      subEl.innerText = lang.subtitle;
+‏      infoEl.innerText = lang.info;
+‏      ageEl.innerText = lang.age;
+‏      footEl.innerText = lang.foot;
+‏      convTitleEl.innerText = lang.conv_title;
+‏      convDescEl.innerText = lang.conv_desc;
+‏      convNoteEl.innerText = lang.conv_note;
+‏      document.documentElement.dir = lang.dir;
+    });
+
+    // مبدل قیمت – نرخ‌های حدودی
+‏    let rateTRY = 38;     // ۱ یورو ≈ ۳۸ لیر (هر وقت خواستی عوضش کن)
+‏    let rateIRR = 62000;  // ۱ یورو ≈ ۶۲,۰۰۰ تومان
+
+‏    const eurRange = document.getElementById("eur-range");
+‏    const eurVal = document.getElementById("eur-val");
+‏    const tryVal = document.getElementById("try-val");
+‏    const irrVal = document.getElementById("irr-val");
+
+‏    function flash(el){
+‏      el.classList.add("flash");
+‏      setTimeout(()=>el.classList.remove("flash"),200);
+    }
+
+‏    function updateConverter(){
+‏      const e = parseFloat(eurRange.value);
+‏      const t = Math.round(e * rateTRY);
+‏      const r = Math.round(e * rateIRR);
+‏      eurVal.textContent = e.toFixed(0);
+‏      tryVal.textContent = t.toLocaleString("en-US");
+‏      irrVal.textContent = r.toLocaleString("fa-IR");
+‏      flash(eurVal); flash(tryVal); flash(irrVal);
+    }
+
+‏    eurRange.addEventListener("input", updateConverter);
+‏    updateConverter();
+‏  </script>
+‏</body>
+‏</html>
